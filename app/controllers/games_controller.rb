@@ -1,4 +1,27 @@
 class GamesController < ApplicationController
+  
+  def hangman
+    text = params["session"]["initialText"]
+    from = params["session"]["from"]
+    network = from["network"]
+    phone_number = from["id"]
+
+    if network == "SMS" && phone_number =~ /^[0-9]+$/ 
+      @user = User.find_or_create_by_phone_number(phone)
+      @game = Game.where(:user => @user, in_progress => true).first
+      # create a new game
+      if @game.nil?
+        word = Word.random_word
+        @game = Game.new(:user => @user, :word => word, :in_progress => true, :guessed_letters => "")
+      else
+        # the game exists
+
+      end
+
+    end
+
+  end
+
   # GET /games
   # GET /games.xml
   def index
