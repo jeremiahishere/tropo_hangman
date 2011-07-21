@@ -1,5 +1,6 @@
 class GamesController < ApplicationController
   
+  #just hangin'
   def hangman
     text = params["session"]["initialText"]
     from = params["session"]["from"]
