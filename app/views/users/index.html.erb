@@ -2,7 +2,7 @@
 
 <table>
   <tr>
-    <th>Phone number</th>
+    <th>Id</th>
     <th></th>
     <th></th>
     <th></th>
@@ -10,7 +10,7 @@
 
 <% @users.each do |user| %>
   <tr>
-    <td><%= user.phone_number %></td>
+    <td><%= user.id %></td>
     <td><%= link_to 'Show', user %></td>
     <td><%= link_to 'Edit', edit_user_path(user) %></td>
     <td><%= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete %></td>
