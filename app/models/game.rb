@@ -3,6 +3,7 @@ class Game < ActiveRecord::Base
   belongs_to :word
 
   def guess_letter(guess)
+    guess.downcase!
     letters = self.guessed_letters.split(//)
     letters.push(guess) unless letters.include?(guess)
     letters.sort
