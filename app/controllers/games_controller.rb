@@ -25,7 +25,7 @@ class GamesController < ApplicationController
           game_message "Available commands are :help, :new, and :word.  Guess a letter by sending a single letter."
         elsif text == ":new" 
           # end the current game and start a new game
-          Game.where(:user => @user, in_progress => true).each do |game|
+          Game.where(:user_id => @user.id, in_progress => true).each do |game|
             game.update_attributes(:in_progress => false)
           end
           @game = Game.new(:user => @user, :word => Word.random_word, :in_progress => true, :guessed_letters => "")
