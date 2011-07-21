@@ -7,19 +7,43 @@ class GamesController < ApplicationController
     phone_number = from["id"]
 
     if network == "SMS" && phone_number =~ /^[0-9]+$/ 
-      @user = User.find_or_create_by_phone_number(phone)
+      @user = User.find_or_create_by_phone_number(phone_number)
       @game = Game.where(:user => @user, in_progress => true).first
+
       # create a new game
       if @game.nil?
-        word = Word.random_word
-        @game = Game.new(:user => @user, :word => word, :in_progress => true, :guessed_letters => "")
+        text = ":new"
       else
         # the game exists
-
+        if text == ":help" # return helpful info 
+          game_message "Available commands are :help, :new, and :word.  Guess a letter by sending a single letter."
+        elsif text == ":new" 
+          # end the current game and start a new game
+          Game.where(:user => @user, in_progress => true).eadh do |game|
+            game.update_attributes(:in_progress => false)
+          end
+          @game = Game.new(:user => @user, :word => Word.random_word, :in_progress => true, :guessed_letters => "")
+          game_message = "Tropo Hangman: "
+          for 1..@game.word.length
+            game_message .= "_"
+          end
+          game_message = " Send a letter to guess or :help for help"
+        elsif text == ":word" # return the word with blanks filled in 
+        else
+          guess = text[0]
+          @game.guess_letter(guess)
+          if @game.win?
+            game_message = ""
+          else
+            game_message = ""
+          end
+        end
       end
-
+      render :json => Tropo::Generator.say(game_message)
+    else
+      render :json => Tropo::Generator.say("Unsupported operation")
     end
-
+    end
   end
 
   # GET /games
