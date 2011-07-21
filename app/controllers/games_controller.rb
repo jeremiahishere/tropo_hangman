@@ -15,7 +15,7 @@ class GamesController < ApplicationController
 
       Message.create(:user => @user, :message_text => text)
       @game = Game.where(:user_id => @user.id, :in_progress => true).first
-
+      @game_message = "The game message has not been set correctly."
       # create a new game
       if @game.nil?
         text = ":new"
