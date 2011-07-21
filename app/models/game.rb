@@ -18,6 +18,7 @@ class Game < ActiveRecord::Base
       if !guesses.include?(letter)
         return false
       end
+    end
     return true
   end
 
@@ -31,6 +32,7 @@ class Game < ActiveRecord::Base
       else
         output += "_"
       end
+    end
     return output
   end
 end
