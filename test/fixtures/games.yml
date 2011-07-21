@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  user_id: 1
+  word_id: 1
+  in_progress: false
+  guessed_letters: MyString
+
+two:
+  user_id: 1
+  word_id: 1
+  in_progress: false
+  guessed_letters: MyString
