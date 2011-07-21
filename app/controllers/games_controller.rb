@@ -22,28 +22,28 @@ class GamesController < ApplicationController
         # the game exists
         if text == ":help" 
           # return helpful info 
-          game_message "Available commands are :help, :new, and :word.  Guess a letter by sending a single letter."
+          @game_message "Available commands are :help, :new, and :word.  Guess a letter by sending a single letter."
         elsif text == ":new" 
           # end the current game and start a new game
           Game.where(:user_id => @user.id, :in_progress => true).each do |game|
             game.update_attributes(:in_progress => false)
           end
           @game = Game.new(:user => @user, :word => Word.random_word, :in_progress => true, :guessed_letters => "")
-          game_message = "Tropo Hangman: #{@game.partial_word}; Send a letter to guess or :help for help"
+          @game_message = "Tropo Hangman: #{@game.partial_word}; Send a letter to guess or :help for help"
         elsif text == ":word" 
           # return the word with blanks filled in 
-          game_message = "Partial word: #{@game.partial_word}; Guessed Letters: #{@game.guessed_letters}"
+          @game_message = "Partial word: #{@game.partial_word}; Guessed Letters: #{@game.guessed_letters}"
         else
           guess = text[0]
           @game.guess_letter(guess)
           if @game.win?
-            game_message = "You have won. Send :new for a new game."
+            @game_message = "You have won. Send :new for a new game."
           else
-            game_message = "Partial word: #{@game.partial_word}; Guessed Letters: #{@game.guessed_letters}"
+            @game_message = "Partial word: #{@game.partial_word}; Guessed Letters: #{@game.guessed_letters}"
           end
         end
       end
-      render :json => Tropo::Generator.say(game_message)
+      render :json => Tropo::Generator.say(@game_message)
     else
       render :json => Tropo::Generator.say("Unsupported operation")
     end
