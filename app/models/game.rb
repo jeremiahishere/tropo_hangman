@@ -7,8 +7,7 @@ class Game < ActiveRecord::Base
     letters = self.guessed_letters.split(//)
     letters.push(guess) unless letters.include?(guess)
     letters.sort
-    letters.join!()
-    self.guessed_letters = letters
+    self.guessed_letters = letters.join('')
     save
   end
 
