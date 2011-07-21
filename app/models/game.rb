@@ -30,7 +30,7 @@ class Game < ActiveRecord::Base
       if guesses.include?(letter)
         output += letter
       else
-        output += "_"
+        output += "_ "
       end
     end
     return output
