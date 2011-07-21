@@ -1,5 +1,6 @@
 source 'http://rubygems.org'
 
+gem 'tropo-webapi-ruby', :git => 'git://github.com/tropo/tropo-webapi-ruby.git'
 gem 'rails', '3.0.9'
 
 # Bundle edge Rails instead:

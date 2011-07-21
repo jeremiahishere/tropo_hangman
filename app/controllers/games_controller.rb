@@ -8,6 +8,7 @@ class GamesController < ApplicationController
 
     if network == "SMS" && phone_number =~ /^[0-9]+$/ 
       @user = User.find_or_create_by_phone_number(phone_number)
+      Message.create(:user => @user, :message_text => text)
       @game = Game.where(:user => @user, in_progress => true).first
 
       # create a new game
