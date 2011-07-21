@@ -23,7 +23,7 @@ class GamesController < ApplicationController
         # the game exists
         if text == ":help" 
           # return helpful info 
-          @game_message "Available commands are :help, :new, and :word.  Guess a letter by sending a single letter."
+          @game_message = "Available commands are :help, :new, and :word.  Guess a letter by sending a single letter."
         elsif text == ":new" 
           # end the current game and start a new game
           Game.where(:user_id => @user.id, :in_progress => true).each do |game|
