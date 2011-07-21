@@ -1,6 +1,8 @@
 TropoHangman::Application.routes.draw do
   resources :games
 
+  root :to => "games#hangman"
+
   resources :users
 
   resources :words
