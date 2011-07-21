@@ -13,7 +13,7 @@ class GamesController < ApplicationController
       end
 
       Message.create(:user => @user, :message_text => text)
-      @game = Game.where(:user => @user, :in_progress => true).first
+      @game = Game.where(:user_id => @user.id, :in_progress => true).first
 
       # create a new game
       if @game.nil?
