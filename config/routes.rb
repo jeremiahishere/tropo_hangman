@@ -1,13 +1,11 @@
 TropoHangman::Application.routes.draw do
-  resources :messages
-
-  resources :games
 
   root :to => "games#hangman"
 
-  resources :users
-
-  resources :words
+  #resources :messages
+  #resources :games
+  #resources :users
+  #resources :words
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
